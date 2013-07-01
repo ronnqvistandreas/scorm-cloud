@@ -1,7 +1,7 @@
 module ScormCloud
 	class Course < ScormCloud::BaseObject
 
-		attr_accessor :id, :versions, :registrations, :title, :size
+		attr_accessor :id, :versions, :registrations, :title, :size, :tags
 
 		def self.from_xml(element)
 			c = Course.new
