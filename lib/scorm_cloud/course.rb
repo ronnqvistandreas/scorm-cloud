@@ -6,7 +6,12 @@ module ScormCloud
 		def self.from_xml(element)
 			c = Course.new
 			c.set_attributes(element.attributes)
-			c
+      tmp = []
+      element.elements["tags/"].each {|t|
+        tmp << t[0].to_s
+      }
+      c.tags = tmp
+      c
 		end
 
 	end

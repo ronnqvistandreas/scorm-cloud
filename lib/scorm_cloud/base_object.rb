@@ -1,7 +1,7 @@
 module ScormCloud
 	class BaseObject
 
-		def set_attributes(attributes)				
+		def set_attributes(attributes)
 			attributes.each { |k,v| set_attr(k,v) }
 		end
 
