@@ -1,8 +1,7 @@
 module ScormCloud
 	class RegistrationService < BaseService
 
-		not_implemented :get_registration_list_results,
-			:get_launch_history, :get_launch_info, :reset_global_objectives,
+		not_implemented :get_launch_history, :get_launch_info, :reset_global_objectives,
 			:update_learner_info, :test_registration_post_url
 
 		def create_registration(course_id, reg_id, first_name, last_name, learner_id, options = {})
@@ -30,7 +29,12 @@ module ScormCloud
 		def get_registration_result(reg_id, format="course")
 			raise "Illegal format argument: #{format}" unless ["course","activity","full"].include?(format)
 			connection.call_raw("rustici.registration.getRegistrationResult", { :regid => reg_id, :format => format })
-		end
+    end
+
+    def get_registration_list_results(options = {})
+      xml = connection.call("rustici.registration.getRegistrationListResults", options)
+      xml.elements["/rsp/registrationlist"].map { |e| Registration.from_xml(e) }
+    end
 
 		def launch(reg_id, redirect_url, options = {})
 			params = options.merge({ 
