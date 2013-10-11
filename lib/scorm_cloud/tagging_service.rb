@@ -6,7 +6,7 @@ module ScormCloud
 				:add_registration_tag, :remove_registration_tag
 
     def get_course_tags(courseid)
-      xml = sc.tagging.connection.call("rustici.tagging.getCourseTags", :courseid => courseid)
+      xml = connection.call("rustici.tagging.getCourseTags", :courseid => courseid)
       tags = []
       xml.elements["/rsp/tags"].each{|t|
         tags << t[0].to_s
