@@ -11,6 +11,12 @@ module ScormCloud
 			r.set_attributes(element.attributes)
 			element.children.each do |element|
 				r.set_attr(element.name, element.text)
+				
+				element.children.each do |element|
+					if element.class != REXML::CData
+						r.set_attr(element.name, element.text)
+					end
+				end
 			end
 			r
 		end
